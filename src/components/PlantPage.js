@@ -21,6 +21,15 @@ function PlantPage() {
   }
 
   function handleToggleSoldOut(id) {
+    setPlants((plants) => 
+      plants.map((plant) => 
+        plant.id === id ? {...plant, isSoldOut: !plant.isSoldOut} : plant
+      )
+    );
+  }
+
+  function handleAddPlant(newPlant) {
+    setPlants((plants) => [...plants, newPlant]);
   }
 
 
