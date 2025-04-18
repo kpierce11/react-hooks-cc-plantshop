@@ -13,11 +13,13 @@ function PlantPage() {
       .then((data) => setPlants(data.map((plant) => ({...plant, isSoldOut: false}))));
   }, []);
 
-  const visiblePlants = plants.filter((plant) => {
-    plant.name.toLowerCase().includes(searchQuery.toLowerCase());
+  const visiblePlants = plants.filter(plant => {
+    return plant.name.toLowerCase().includes(searchQuery.toLowerCase());
   });
+  
 
   function handleAddPlant(newPlant) {
+    setPlants((plants) => [...plants, newPlant]);
   }
 
   function handleToggleSoldOut(id) {
@@ -27,11 +29,6 @@ function PlantPage() {
       )
     );
   }
-
-  function handleAddPlant(newPlant) {
-    setPlants((plants) => [...plants, newPlant]);
-  }
-
 
   return (
     <main>
