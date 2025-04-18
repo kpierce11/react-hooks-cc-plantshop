@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import NewPlantForm from "./NewPlantForm";
 import PlantList from "./PlantList";
 import Search from "./Search";
-import { useState, useEffect } from "react";
 
 function PlantPage() {
   const [plants, setPlants] = useState([]);
@@ -13,12 +12,29 @@ function PlantPage() {
       .then((r) => r.json())
       .then((data) => setPlants(data.map((plant) => ({...plant, isSoldOut: false}))));
   }, []);
-  
+
+  const visiblePlants = plants.filter((plant) => {
+    plant.name.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+
+  function handleAddPlant(newPlant) {
+  }
+
+  function handleToggleSoldOut(id) {
+  }
+
+
   return (
     <main>
-      <NewPlantForm />
-      <Search />
-      <PlantList />
+      <NewPlantForm onAddPlant={handleAddPlant} />
+      <Search 
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+        />
+      <PlantList 
+        plants={visiblePlants}
+        onToggleSoldOut={handleToggleSoldOut}
+        />
     </main>
   );
 }
